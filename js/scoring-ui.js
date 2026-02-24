@@ -9,6 +9,19 @@ const ScoringUI = (() => {
   let _onScoreChanged = null;
   let _initialized = false;
 
+  // Japanese translations for raters
+  const WORDS_JA = {
+    hongos: 'きのこ', reloj: '時計', tijeras: 'はさみ',
+    sandia: 'スイカ', cuaderno: 'ノート', ardilla: 'リス',
+    cinta: 'テープ', fresas: 'いちご', tiza: 'チョーク',
+    caballo: '馬', elote: 'とうもろこし', manzana: 'りんご',
+    oso: 'クマ', pato: 'アヒル', grapadora: 'ホチキス',
+    loro: 'オウム', cebolla: '玉ねぎ', lechuga: 'レタス',
+    lapiz: '鉛筆', conejo: 'ウサギ', gato: '猫',
+    naranja: 'オレンジ', basurero: 'ゴミ箱', pez: '魚',
+    perro: '犬', tortuga: 'カメ'
+  };
+
   function init(onScoreChanged) {
     _onScoreChanged = onScoreChanged;
     if (!_initialized) {
@@ -75,15 +88,19 @@ const ScoringUI = (() => {
     // Word display
     const wordEl = document.getElementById('trial-word');
     const detailsEl = document.getElementById('trial-details');
+    const refBtnContainer = document.getElementById('reference-audio-container');
     const words = CsvLoader.getWords();
     const english = words[trial.wordNormalized] || '';
+    const japanese = WORDS_JA[trial.wordNormalized] || '';
 
     if (dataset.testType === 'l2_to_l1') {
-      wordEl.textContent = `${trial.word}`;
-      detailsEl.textContent = `Expected: ${english} | Voice: ${trial.voice}`;
+      wordEl.textContent = trial.word;
+      detailsEl.innerHTML = `<span class="expected-answer">正解: <strong>${english}</strong>${japanese ? ` (${japanese})` : ''}</span> <span class="voice-tag">${trial.voice}</span>`;
+      refBtnContainer.style.display = 'none';
     } else {
-      wordEl.textContent = `${trial.word}`;
-      detailsEl.textContent = `Expected Spanish production | English: ${english}`;
+      wordEl.textContent = trial.word;
+      detailsEl.innerHTML = `${japanese ? `<span class="ja-translation">${japanese}</span> ` : ''}<span class="expected-answer">English: ${english}</span>`;
+      refBtnContainer.style.display = '';
     }
 
     // Dialect note for manzana/lápiz
@@ -221,8 +238,24 @@ const ScoringUI = (() => {
     handleOnsetAction('confirmed');
   }
 
+  // ── Reference Pronunciation (SpeechSynthesis) ──
+
+  function playReference() {
+    if (!_currentTrial) return;
+    speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(_currentTrial.word);
+    utterance.lang = 'es-ES';
+    utterance.rate = 0.85;
+    // Try to pick a Spanish voice
+    const voices = speechSynthesis.getVoices();
+    const esVoice = voices.find(v => v.lang.startsWith('es'));
+    if (esVoice) utterance.voice = esVoice;
+    speechSynthesis.speak(utterance);
+  }
+
   return {
     init, renderTrial, setAccuracyScore, handleOnsetAction,
-    saveCurrentScore, scoreByKey, confirmOnset, getActiveScore, getActiveOnsetStatus
+    saveCurrentScore, scoreByKey, confirmOnset, getActiveScore, getActiveOnsetStatus,
+    playReference
   };
 })();

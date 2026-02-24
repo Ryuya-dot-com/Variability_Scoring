@@ -65,7 +65,14 @@
     <main class="scoring-main">
       <!-- Trial info -->
       <div class="trial-info">
-        <div id="trial-word" class="trial-word"></div>
+        <div class="trial-info-row">
+          <div id="trial-word" class="trial-word"></div>
+          <div id="reference-audio-container" class="reference-audio-container" style="display:none">
+            <button id="play-reference" class="btn btn-reference" title="Play reference pronunciation">
+              <span class="ref-icon">&#9835;</span> 発音を聴く
+            </button>
+          </div>
+        </div>
         <div id="trial-details" class="trial-details"></div>
         <div id="dialect-note" class="dialect-note" style="display:none">
           Note: Both /s/ and /&theta;/ pronunciations of "z" are acceptable (regional dialect)

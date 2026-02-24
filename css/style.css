@@ -173,8 +173,38 @@ body {
 
 /* Trial Info */
 .trial-info { margin-bottom: 12px; }
+.trial-info-row { display: flex; align-items: center; gap: 16px; }
 .trial-word { font-size: 24px; font-weight: 700; }
 .trial-details { color: var(--text-muted); font-size: 14px; margin-top: 4px; }
+.trial-details .expected-answer { }
+.trial-details .expected-answer strong { color: var(--success); font-size: 15px; }
+.trial-details .voice-tag {
+  display: inline-block;
+  padding: 1px 8px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+.trial-details .ja-translation {
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 600;
+}
+.reference-audio-container { flex-shrink: 0; }
+.btn-reference {
+  padding: 6px 14px;
+  font-size: 13px;
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.btn-reference:hover { background: var(--accent); color: #fff; }
+.ref-icon { font-size: 15px; margin-right: 2px; }
 .dialect-note {
   margin-top: 8px;
   padding: 8px 12px;

@@ -1,0 +1,25 @@
+trial,word,word_id,list,image_file,trial_start_epoch_ms,image_onset_ms,image_onset_epoch_ms,recording_start_ms,recording_end_ms,recording_start_epoch_ms,recording_end_epoch_ms,iti_ms,participant_id,recording_file,image_onset_ms_rel,onset_ms_from_recording_start,latency_ms_from_image_onset,latency_status,latency_dynamic_threshold_db,latency_fallback_used,latency_note
+9,ardilla,16,2,ardilla.jpg,1.76924E+12,0.1,1.76924E+12,0.1,6018.8,1.76924E+12,1.76924E+12,1500,42,42_ardilla.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+15,basurero,23,2,basurero.jpg,1.76924E+12,0.3,1.76924E+12,0.3,6015,1.76924E+12,1.76924E+12,1500,42,42_basurero.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+20,caballo,11,1,caballo.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6022.3,1.76924E+12,1.76924E+12,1500,42,42_caballo.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+7,cebolla,14,2,cebolla.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6015.7,1.76924E+12,1.76924E+12,1500,42,42_cebolla.wav,0,5872.208,5872.208,ok,-45,TRUE,
+12,cinta,8,1,cinta.jpg,1.76924E+12,0.1,1.76924E+12,0.1,6014.8,1.76924E+12,1.76924E+12,1500,42,42_cinta.wav,0,1795.313,1795.313,ok,-40,FALSE,
+5,conejo,20,2,conejo.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6023.8,1.76924E+12,1.76924E+12,1500,42,42_conejo.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+23,cuaderno,15,2,cuaderno.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6016.9,1.76924E+12,1.76924E+12,1500,42,42_cuaderno.wav,0,3090.063,3090.063,ok,-40,FALSE,
+4,elote,12,1,elote.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6011.7,1.76924E+12,1.76924E+12,1500,42,42_elote.wav,0,1815.042,1815.042,ok,-40,FALSE,
+24,fresas,9,1,fresas.jpg,1.76924E+12,0,1.76924E+12,0,6027,1.76924E+12,1.76924E+12,1500,42,42_fresas.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+21,gato,21,2,gato.jpg,1.76924E+12,0.3,1.76924E+12,0.3,6020.6,1.76924E+12,1.76924E+12,1500,42,42_gato.wav,0,3400.188,3400.188,ok,-40,FALSE,
+16,grapadora,7,1,grapadora.jpg,1.76924E+12,0.1,1.76924E+12,0.1,6025.6,1.76924E+12,1.76924E+12,1500,42,42_grapadora.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+17,hongos,13,2,hongos.jpg,1.76924E+12,0.5,1.76924E+12,0.5,6014.7,1.76924E+12,1.76924E+12,1500,42,42_hongos.wav,0,1634.875,1634.875,ok,-40,FALSE,
+19,lápiz,19,2,lapiz.jpg,1.76924E+12,0.4,1.76924E+12,0.4,6027.7,1.76924E+12,1.76924E+12,1500,42,42_lápiz.wav,0,1491.083,1491.083,ok,-40,FALSE,
+3,lechuga,18,2,lechuga.jpg,1.76924E+12,0.1,1.76924E+12,0.1,6015.9,1.76924E+12,1.76924E+12,1500,42,42_lechuga.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+11,loro,17,2,loro.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6018.3,1.76924E+12,1.76924E+12,1500,42,42_loro.wav,0,1559.625,1559.625,ok,-40,FALSE,
+22,manzana,1,1,manzana.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6011,1.76924E+12,1.76924E+12,1500,42,42_manzana.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+13,naranja,22,2,naranja.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6018.8,1.76924E+12,1.76924E+12,1500,42,42_naranja.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+10,oso,2,1,oso.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6018.5,1.76924E+12,1.76924E+12,1500,42,42_oso.wav,0,2262.979,2262.979,ok,-40,FALSE,
+2,pato,6,1,pato.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6015.9,1.76924E+12,1.76924E+12,1500,42,42_pato.wav,0,2298.583,2298.583,ok,-40,FALSE,
+1,pez,24,2,pez.jpg,1.76924E+12,0.4,1.76924E+12,0.4,6018.2,1.76924E+12,1.76924E+12,1500,42,42_pez.wav,0,97.646,97.646,ok,-40,FALSE,
+8,reloj,3,1,reloj.jpg,1.76924E+12,0.3,1.76924E+12,0.3,6017.7,1.76924E+12,1.76924E+12,1500,42,42_reloj.wav,0,3802.25,3802.25,ok,-40,FALSE,
+14,sandía,5,1,sandia.jpg,1.76924E+12,0.1,1.76924E+12,0.1,6015.3,1.76924E+12,1.76924E+12,1500,42,42_sandía.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+18,tijeras,4,1,tijeras.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6024.4,1.76924E+12,1.76924E+12,1500,42,42_tijeras.wav,0,2341.938,2341.938,ok,-40,FALSE,
+6,tiza,10,1,tiza.jpg,1.76924E+12,0.2,1.76924E+12,0.2,6024.9,1.76924E+12,1.76924E+12,1500,42,42_tiza.wav,0,2820.271,2820.271,ok,-40,FALSE,

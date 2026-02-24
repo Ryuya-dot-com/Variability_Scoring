@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary Test Scorer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- ── Setup Screen ── -->
+  <div id="setup-screen" class="screen">
+    <div class="setup-container">
+      <h1>Vocabulary Test Scorer</h1>
+      <p class="subtitle">Barcroft & Sommers (2005) Scoring Tool</p>
+
+      <div class="setup-section">
+        <label for="rater-id">Rater ID</label>
+        <input type="text" id="rater-id" placeholder="e.g., rater_A" autocomplete="off">
+      </div>
+
+      <div class="setup-section">
+        <label>Dataset</label>
+        <div id="dataset-selector" class="radio-group"></div>
+      </div>
+
+      <div class="setup-section">
+        <label>Participants <span id="participant-count" class="badge"></span></label>
+        <div class="participant-controls">
+          <button id="select-all-btn" class="btn btn-sm">Select All</button>
+          <button id="deselect-all-btn" class="btn btn-sm">Deselect All</button>
+        </div>
+        <div id="participant-selector" class="checkbox-grid"></div>
+      </div>
+
+      <button id="start-btn" class="btn btn-primary btn-lg" disabled>Start Scoring</button>
+
+      <div id="resume-section" class="resume-section" style="display:none">
+        <h3>Previous Session Found</h3>
+        <p id="resume-info"></p>
+        <button id="resume-btn" class="btn btn-primary">Resume</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Scoring Screen ── -->
+  <div id="scoring-screen" class="screen" style="display:none">
+    <header class="scoring-header">
+      <div class="header-left">
+        <button id="back-to-setup" class="btn btn-sm" title="Back to setup">Back</button>
+        <span id="dataset-label" class="dataset-badge"></span>
+        <button id="instructions-toggle" class="btn btn-sm btn-info" title="Scoring Instructions (I)">説明</button>
+      </div>
+      <div class="header-center">
+        <button id="prev-trial" class="btn btn-nav" title="Previous trial (←)">Prev</button>
+        <span id="trial-indicator">Trial 1/24</span>
+        <button id="next-trial" class="btn btn-nav" title="Next trial (→)">Next</button>
+      </div>
+      <div class="header-right">
+        <button id="prev-participant" class="btn btn-nav btn-sm" title="Previous participant">Prev P</button>
+        <span id="participant-indicator">Participant 1/38</span>
+        <button id="next-participant" class="btn btn-nav btn-sm" title="Next participant">Next P</button>
+      </div>
+    </header>
+
+    <main class="scoring-main">
+      <!-- Trial info -->
+      <div class="trial-info">
+        <div id="trial-word" class="trial-word"></div>
+        <div id="trial-details" class="trial-details"></div>
+        <div id="dialect-note" class="dialect-note" style="display:none">
+          Note: Both /s/ and /&theta;/ pronunciations of "z" are acceptable (regional dialect)
+        </div>
+      </div>
+
+      <!-- Stimulus image (PictureNaming only) -->
+      <div id="stimulus-image-container" class="stimulus-image-container" style="display:none">
+        <img id="stimulus-image" src="" alt="Stimulus image">
+      </div>
+
+      <!-- Waveform -->
+      <div class="waveform-section">
+        <div class="playback-controls">
+          <button id="play-btn" class="btn btn-play" title="Play/Pause (Space)">Play</button>
+          <button id="stop-btn" class="btn btn-sm" title="Stop">Stop</button>
+          <button id="play-from-onset" class="btn btn-sm" title="Play from onset (R)">From Onset</button>
+          <div class="zoom-control">
+            <button id="zoom-out" class="btn btn-sm btn-zoom" title="Zoom out (-)">−</button>
+            <span id="zoom-level">1.0x</span>
+            <button id="zoom-in" class="btn btn-sm btn-zoom" title="Zoom in (+)">+</button>
+            <button id="zoom-reset" class="btn btn-sm" title="Reset zoom">Fit</button>
+          </div>
+          <div class="speed-control">
+            <label>Speed:</label>
+            <select id="playback-speed">
+              <option value="0.5">0.5x</option>
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+            </select>
+          </div>
+        </div>
+        <div id="waveform-container" class="waveform-container"></div>
+        <div id="waveform-timeline" class="waveform-timeline"></div>
+        <div id="waveform-minimap" class="waveform-minimap"></div>
+        <div class="waveform-info">
+          <span id="waveform-time">0.000s / 0.000s</span>
+          <span id="onset-display">Onset: -- ms</span>
+        </div>
+      </div>
+
+      <!-- Latency verification -->
+      <div class="latency-section">
+        <h3>Latency Verification</h3>
+        <div class="latency-info">
+          <span>Auto-detected onset: <strong id="auto-onset-value">--</strong> ms</span>
+          <span>Status: <strong id="latency-status-display">--</strong></span>
+        </div>
+        <div class="latency-controls">
+          <button id="onset-confirm" class="btn btn-onset" data-status="confirmed" title="Confirm (C)">Confirm</button>
+          <button id="onset-correct" class="btn btn-onset" data-status="corrected" title="Drag marker on waveform">Correct (drag)</button>
+          <button id="onset-manual" class="btn btn-onset" data-status="manual" title="Click on waveform to set">Manual Set</button>
+          <button id="onset-no-speech" class="btn btn-onset" data-status="no_speech" title="No speech in recording">No Speech</button>
+        </div>
+        <div class="onset-manual-input">
+          <label for="onset-ms-input">Onset (ms):</label>
+          <input type="number" id="onset-ms-input" step="0.1" min="0">
+          <button id="onset-ms-apply" class="btn btn-sm">Apply</button>
+        </div>
+      </div>
+
+      <!-- Accuracy scoring -->
+      <div class="accuracy-section">
+        <h3>Accuracy Score</h3>
+        <div class="score-buttons">
+          <button class="btn btn-score" data-score="0" title="Score 0 (key: 0)">0</button>
+          <button class="btn btn-score" data-score="0.5" title="Score 0.5 (key: 5)">0.5</button>
+          <button class="btn btn-score" data-score="1" title="Score 1 (key: 1)">1</button>
+        </div>
+        <div id="score-hint" class="score-hint"></div>
+      </div>
+
+      <!-- Notes -->
+      <div class="notes-section">
+        <label for="trial-notes">Notes (N):</label>
+        <textarea id="trial-notes" rows="2" placeholder="Optional notes..."></textarea>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-section">
+        <div class="progress-bar-container">
+          <div id="progress-bar" class="progress-bar" style="width:0%"></div>
+        </div>
+        <span id="progress-text">0 / 0 scored</span>
+        <button id="jump-unscored" class="btn btn-sm">Jump to Unscored</button>
+      </div>
+    </main>
+
+    <footer class="scoring-footer">
+      <button id="export-participant" class="btn">Export Participant (.xlsx)</button>
+      <button id="export-csv" class="btn">Export All (CSV)</button>
+      <button id="export-json" class="btn">Export JSON</button>
+      <span id="save-status" class="save-status">Saved</span>
+    </footer>
+  </div>
+
+  <!-- ── Instructions Panel (slide-out sidebar) ── -->
+  <div id="instructions-panel" class="instructions-panel" style="display:none">
+    <div class="instructions-header">
+      <h2>採点基準 / Scoring Instructions</h2>
+      <button id="instructions-close" class="btn btn-sm">Close</button>
+    </div>
+    <div class="instructions-body">
+      <section>
+        <h3>1. 正確性の採点 (Accuracy Scoring)</h3>
+        <p>Barcroft & Sommers (2005) に基づく採点基準:</p>
+        <table class="instructions-table">
+          <tr>
+            <td class="score-cell score-1">1</td>
+            <td><strong>1点: 完全に正しい産出</strong><br>
+              全ての音素が正確に産出されている場合。</td>
+          </tr>
+          <tr>
+            <td class="score-cell score-05">0.5</td>
+            <td><strong>0.5点: 1つの音節内で音素の欠落・不正確</strong><br>
+              1つの音節の中で、1つ以上の音素が欠落しているか不正確だが、
+              他の音節は正確に産出されている場合。<br>
+              <em>※ Picture Namingで主に使用。L2-to-L1ではL1回答のため0.5はほぼ使われません。</em></td>
+          </tr>
+          <tr>
+            <td class="score-cell score-0">0</td>
+            <td><strong>0点: その他（無回答含む）</strong><br>
+              2つ以上の音節に誤りがある場合、全く異なる単語を産出した場合、
+              または無回答の場合。</td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h3>2. 特殊ケース</h3>
+        <div class="instruction-note">
+          <strong>manzana / lápiz:</strong><br>
+          "z" の発音について、/θ/（カスティーリャ方言）と /s/（ラテンアメリカ方言）の
+          両方を正しいと見なします。どちらの発音でも1点を与えてください。
+        </div>
+        <div class="instruction-note" style="margin-top:8px">
+          <strong>L2-to-L1 テスト:</strong><br>
+          参加者は英語（L1）で回答するため、音素レベルの採点（0.5）はほとんど適用されません。
+          正しい英単語が産出されていれば1点、間違いや無回答は0点としてください。
+        </div>
+      </section>
+
+      <section>
+        <h3>3. 発話開始点の確認 (Onset Verification)</h3>
+        <p>自動検出されたオンセット（赤いマーカー）が正しいかを確認してください。</p>
+        <h4>操作方法:</h4>
+        <ul>
+          <li><strong>Confirm (C):</strong> 自動検出が正しい場合、そのまま承認</li>
+          <li><strong>Correct (drag):</strong> マーカーをドラッグして位置を修正</li>
+          <li><strong>Manual Set:</strong> 波形をクリックしてオンセットを手動設定</li>
+          <li><strong>No Speech:</strong> 録音に発話が含まれていない場合</li>
+        </ul>
+
+        <h4>よくあるずれのパターン:</h4>
+        <ul>
+          <li><strong>早すぎるオンセット（背景ノイズ）:</strong><br>
+            環境音やマイクのノイズが発話前に検出され、
+            オンセットが実際の発話開始より前に設定される場合があります。
+            波形上で実際の発話開始点にマーカーを移動してください。</li>
+          <li><strong>遅すぎるオンセット（小声の発話）:</strong><br>
+            参加者が小さな声で話し始めた場合、自動検出が発話開始を
+            見逃すことがあります。波形を拡大（ズーム）して注意深く確認し、
+            手動で設定してください。</li>
+          <li><strong>息や舌打ちの誤検出:</strong><br>
+            発話前の呼吸音や口の動き（クリック音）が検出される場合があります。
+            これらは発話ではないため、実際の発話開始点にオンセットを移動してください。</li>
+          <li><strong>L2-to-L1の場合:</strong><br>
+            緑のマーカーは音声刺激の再生終了位置を示します。
+            参加者の発話開始（赤マーカー）はこの後にあるはずです。</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>4. 波形の操作</h3>
+        <ul>
+          <li><strong>ズーム:</strong> +/- キーまたはボタンで拡大・縮小</li>
+          <li><strong>ミニマップ:</strong> 波形下部に全体概要が表示されます</li>
+          <li><strong>再生速度:</strong> 0.5x〜1.5xで変更可能</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>5. キーボードショートカット</h3>
+        <table class="shortcuts-table">
+          <tr><td>Space</td><td>再生 / 一時停止</td></tr>
+          <tr><td>0</td><td>スコア = 0</td></tr>
+          <tr><td>5</td><td>スコア = 0.5</td></tr>
+          <tr><td>1</td><td>スコア = 1</td></tr>
+          <tr><td>→ / Enter</td><td>次の試行</td></tr>
+          <tr><td>←</td><td>前の試行</td></tr>
+          <tr><td>C</td><td>オンセット確認</td></tr>
+          <tr><td>R</td><td>オンセット位置から再生</td></tr>
+          <tr><td>N</td><td>ノート入力にフォーカス</td></tr>
+          <tr><td>I</td><td>この説明パネルの表示切替</td></tr>
+          <tr><td>+ / -</td><td>ズームイン / アウト</td></tr>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <!-- Keyboard shortcuts reference (togglable) -->
+  <div id="shortcuts-panel" class="shortcuts-panel" style="display:none">
+    <h3>Keyboard Shortcuts</h3>
+    <table>
+      <tr><td>Space</td><td>Play / Pause</td></tr>
+      <tr><td>0</td><td>Score = 0</td></tr>
+      <tr><td>5</td><td>Score = 0.5</td></tr>
+      <tr><td>1</td><td>Score = 1</td></tr>
+      <tr><td>&rarr; / Enter</td><td>Next trial</td></tr>
+      <tr><td>&larr;</td><td>Previous trial</td></tr>
+      <tr><td>C</td><td>Confirm onset</td></tr>
+      <tr><td>R</td><td>Play from onset</td></tr>
+      <tr><td>N</td><td>Focus notes</td></tr>
+      <tr><td>I</td><td>Toggle instructions</td></tr>
+      <tr><td>+ / -</td><td>Zoom in / out</td></tr>
+      <tr><td>?</td><td>Toggle shortcuts</td></tr>
+    </table>
+  </div>
+
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/regions.min.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/minimap.min.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/timeline.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+  <script src="js/csv-loader.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/waveform.js"></script>
+  <script src="js/scoring-ui.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/instructions.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

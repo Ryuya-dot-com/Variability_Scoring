@@ -1,0 +1,25 @@
+trial,attempt,voice,word,word_id,list,audio_file,trial_start_epoch_ms,playback_onset_ms,playback_end_ms,stimulus_duration_ms,recording_start_ms,recording_end_ms,recording_start_epoch_ms,recording_end_epoch_ms,iti_ms,participant_id,recording_file,playback_end_ms_rel,onset_ms_from_recording_start,latency_ms_from_playback_end,latency_status,latency_dynamic_threshold_db,latency_fallback_used,latency_note
+20,1,male,ardilla,16,2,Target_Stimuli/male/ardilla.mp3,1.77E+12,0,1000,1000,0,6019.6,1.77E+12,1.77E+12,1500,7,7_trial20_male_ardilla.wav,1000,2171.438,1171.438,ok,-40,FALSE,
+10,1,female,basurero,23,2,Target_Stimuli/female/basurero.mp3,1.77E+12,0.1,1191.975,1191.875,0,6026.9,1.77E+12,1.77E+12,1500,7,7_trial10_female_basurero.wav,1191.975,3696.896,2504.921,ok,-40,FALSE,
+13,1,female,caballo,11,1,Target_Stimuli/female/caballo.mp3,1.77E+12,0.1,879.975,879.875,0.1,6014.5,1.77E+12,1.77E+12,1500,7,7_trial13_female_caballo.wav,879.875,,,no_speech_detected,-15.22,TRUE,No onset above threshold after playback end
+8,1,male,cebolla,14,2,Target_Stimuli/male/cebolla.mp3,1.77E+12,0.1,881.1,881,0,6027.1,1.77E+12,1.77E+12,1500,7,7_trial8_male_cebolla.wav,881.1,,,no_speech_detected,-12.452,TRUE,No onset above threshold after playback end
+15,1,male,cinta,8,1,Target_Stimuli/male/cinta.mp3,1.77E+12,0.2,810.2,810,0,6019.3,1.77E+12,1.77E+12,1500,7,7_trial15_male_cinta.wav,810.2,4294.417,3484.217,ok,-40,FALSE,
+6,1,male,conejo,20,2,Target_Stimuli/male/conejo.mp3,1.77E+12,0,945,945,0,6022.2,1.77E+12,1.77E+12,1500,7,7_trial6_male_conejo.wav,945,4850.708,3905.708,ok,-40,FALSE,
+12,1,male,cuaderno,15,2,Target_Stimuli/male/cuaderno.mp3,1.77E+12,0,993,993,0,6022,1.77E+12,1.77E+12,1500,7,7_trial12_male_cuaderno.wav,993,,,no_speech_detected,-12.862,TRUE,No onset above threshold after playback end
+7,1,female,elote,12,1,Target_Stimuli/female/elote.mp3,1.77E+12,0,922.875,922.875,0,6014.2,1.77E+12,1.77E+12,1500,7,7_trial7_female_elote.wav,922.875,2510.375,1587.5,ok,-40,FALSE,
+17,1,male,fresas,9,1,Target_Stimuli/male/fresas.mp3,1.77E+12,0,1002,1002,0,6011.5,1.77E+12,1.77E+12,1500,7,7_trial17_male_fresas.wav,1002,2113.979,1111.979,ok,-40,FALSE,
+24,1,female,gato,21,2,Target_Stimuli/female/gato.mp3,1.77E+12,0.1,855.975,855.875,0.1,6016.6,1.77E+12,1.77E+12,1500,7,7_trial24_female_gato.wav,855.875,4246.792,3390.917,ok,-40,FALSE,
+23,1,female,grapadora,7,1,Target_Stimuli/female/grapadora.mp3,1.77E+12,0,1215.875,1215.875,0,6019.3,1.77E+12,1.77E+12,1500,7,7_trial23_female_grapadora.wav,1215.875,5189.063,3973.188,ok,-40,FALSE,
+2,1,male,hongos,13,2,Target_Stimuli/male/hongos.mp3,1.77E+12,0.1,958.1,958,0.1,6015,1.77E+12,1.77E+12,1500,7,7_trial2_male_hongos.wav,958,1054.063,96.063,ok,-40,FALSE,
+18,1,female,lapiz,19,2,Target_Stimuli/female/lapiz.mp3,1.77E+12,0.2,898.075,897.875,0,6014.1,1.77E+12,1.77E+12,1500,7,7_trial18_female_lapiz.wav,898.075,,,no_speech_detected,-13.084,TRUE,No onset above threshold after playback end
+16,1,female,lechuga,18,2,Target_Stimuli/female/lechuga.mp3,1.77E+12,0,1062.875,1062.875,0,6011.1,1.77E+12,1.77E+12,1500,7,7_trial16_female_lechuga.wav,1062.875,,,no_speech_detected,-7.811,TRUE,No onset above threshold after playback end
+22,1,male,loro,17,2,Target_Stimuli/male/loro.mp3,1.77E+12,0.1,870.1,870,0.1,6025.8,1.77E+12,1.77E+12,1500,7,7_trial22_male_loro.wav,870,1946.979,1076.979,ok,-40,FALSE,
+21,1,male,manzana,1,1,Target_Stimuli/male/manzana.mp3,1.77E+12,0.2,1164.2,1164,0,6014.5,1.77E+12,1.77E+12,1500,7,7_trial21_male_manzana.wav,1164.2,,,no_speech_detected,-11.047,TRUE,No onset above threshold after playback end
+14,1,female,naranja,22,2,Target_Stimuli/female/naranja.mp3,1.77E+12,0.2,1121.075,1120.875,0.1,6016.6,1.77E+12,1.77E+12,1500,7,7_trial14_female_naranja.wav,1120.975,,,no_speech_detected,-12.284,TRUE,No onset above threshold after playback end
+19,1,female,oso,2,1,Target_Stimuli/female/oso.mp3,1.77E+12,0.2,806.075,805.875,0.1,6024.8,1.77E+12,1.77E+12,1500,7,7_trial19_female_oso.wav,805.975,3740.688,2934.712,ok,-40,FALSE,
+11,1,female,pato,6,1,Target_Stimuli/female/pato.mp3,1.77E+12,0.1,743.975,743.875,0.1,6012.2,1.77E+12,1.77E+12,1500,7,7_trial11_female_pato.wav,743.875,3330.646,2586.771,ok,-40,FALSE,
+4,1,female,pez,24,2,Target_Stimuli/female/pez.mp3,1.77E+12,0.1,595.975,595.875,0.1,6014.7,1.77E+12,1.77E+12,1500,7,7_trial4_female_pez.wav,595.875,1689.729,1093.854,ok,-40,FALSE,
+9,1,male,reloj,3,1,Target_Stimuli/male/reloj.mp3,1.77E+12,0.2,965.2,965,0.2,6017.8,1.77E+12,1.77E+12,1500,7,7_trial9_male_reloj.wav,965,4789.229,3824.229,ok,-40,FALSE,
+3,1,male,sandía,5,1,Target_Stimuli/male/sandia.mp3,1.77E+12,0.2,1946.158,1945.958,0.2,6012.4,1.77E+12,1.77E+12,1500,7,7_trial3_male_sandia.wav,1945.958,2000.958,55,ok,-40,FALSE,
+5,1,male,tijeras,4,1,Target_Stimuli/male/tijeras.mp3,1.77E+12,0.2,1008.2,1008,0.1,6026.9,1.77E+12,1.77E+12,1500,7,7_trial5_male_tijeras.wav,1008.1,3409,2400.9,ok,-40,FALSE,
+1,1,female,tiza,10,1,Target_Stimuli/female/tiza.mp3,1.77E+12,0.1,796.975,796.875,0.1,6017.9,1.77E+12,1.77E+12,1500,7,7_trial1_female_tiza.wav,796.875,1698.896,902.021,ok,-40,FALSE,

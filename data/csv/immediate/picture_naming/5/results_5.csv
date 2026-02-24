@@ -1,0 +1,25 @@
+trial,word,word_id,list,image_file,trial_start_epoch_ms,image_onset_ms,image_onset_epoch_ms,recording_start_ms,recording_end_ms,recording_start_epoch_ms,recording_end_epoch_ms,iti_ms,participant_id,recording_file,image_onset_ms_rel,onset_ms_from_recording_start,latency_ms_from_image_onset,latency_status,latency_dynamic_threshold_db,latency_fallback_used,latency_note
+16,ardilla,16,2,ardilla.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6024.6,1.7688E+12,1.7688E+12,1500,5,5_ardilla.wav,0,1713.75,1713.75,ok,-40,FALSE,
+18,basurero,23,2,basurero.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6018.4,1.7688E+12,1.7688E+12,1500,5,5_basurero.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+19,caballo,11,1,caballo.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6020,1.7688E+12,1.7688E+12,1500,5,5_caballo.wav,0,5700.688,5700.688,ok,-40,FALSE,
+22,cebolla,14,2,cebolla.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6027.6,1.7688E+12,1.7688E+12,1500,5,5_cebolla.wav,0,5290.229,5290.229,ok,-40,FALSE,
+7,cinta,8,1,cinta.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6012.1,1.7688E+12,1.7688E+12,1500,5,5_cinta.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+6,conejo,20,2,conejo.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6013.4,1.7688E+12,1.7688E+12,1500,5,5_conejo.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+2,cuaderno,15,2,cuaderno.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6019.3,1.7688E+12,1.7688E+12,1500,5,5_cuaderno.wav,0,2742.396,2742.396,ok,-40,FALSE,
+17,elote,12,1,elote.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6016,1.7688E+12,1.7688E+12,1500,5,5_elote.wav,0,1805.375,1805.375,ok,-40,FALSE,
+11,fresas,9,1,fresas.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6022.1,1.7688E+12,1.7688E+12,1500,5,5_fresas.wav,0,3648.604,3648.604,ok,-40,FALSE,
+20,gato,21,2,gato.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6026,1.7688E+12,1.7688E+12,1500,5,5_gato.wav,0,1786.604,1786.604,ok,-40,FALSE,
+1,grapadora,7,1,grapadora.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6022.4,1.7688E+12,1.7688E+12,1500,5,5_grapadora.wav,0,91.375,91.375,ok,-40,FALSE,
+12,hongos,13,2,hongos.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6025.2,1.7688E+12,1.7688E+12,1500,5,5_hongos.wav,0,1656.542,1656.542,ok,-40,FALSE,
+8,lápiz,19,2,lapiz.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6023.4,1.7688E+12,1.7688E+12,1500,5,5_lápiz.wav,0,2356.333,2356.333,ok,-40,FALSE,
+4,lechuga,18,2,lechuga.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6025.3,1.7688E+12,1.7688E+12,1500,5,5_lechuga.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+14,loro,17,2,loro.jpg,1.7688E+12,0,1.7688E+12,0,6013.6,1.7688E+12,1.7688E+12,1500,5,5_loro.wav,0,5044.292,5044.292,ok,-40,FALSE,
+23,manzana,1,1,manzana.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6023.7,1.7688E+12,1.7688E+12,1500,5,5_manzana.wav,0,3955.958,3955.958,ok,-40,FALSE,
+10,naranja,22,2,naranja.jpg,1.7688E+12,0.3,1.7688E+12,0.3,6011.8,1.7688E+12,1.7688E+12,1500,5,5_naranja.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+21,oso,2,1,oso.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6013.4,1.7688E+12,1.7688E+12,1500,5,5_oso.wav,0,1972.458,1972.458,ok,-40,FALSE,
+5,pato,6,1,pato.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6020.4,1.7688E+12,1.7688E+12,1500,5,5_pato.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+24,pez,24,2,pez.jpg,1.7688E+12,0.2,1.7688E+12,0.2,6010.9,1.7688E+12,1.7688E+12,1500,5,5_pez.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+15,reloj,3,1,reloj.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6015.2,1.7688E+12,1.7688E+12,1500,5,5_reloj.wav,0,1600.792,1600.792,ok,-40,FALSE,
+9,sandía,5,1,sandia.jpg,1.7688E+12,0.4,1.7688E+12,0.4,6012.9,1.7688E+12,1.7688E+12,1500,5,5_sandía.wav,0,,,no_speech_detected,-45,TRUE,No onset above threshold after image onset
+3,tijeras,4,1,tijeras.jpg,1.7688E+12,0,1.7688E+12,0,6023.9,1.7688E+12,1.7688E+12,1500,5,5_tijeras.wav,0,1595.292,1595.292,ok,-40,FALSE,
+13,tiza,10,1,tiza.jpg,1.7688E+12,0.1,1.7688E+12,0.1,6026.5,1.7688E+12,1.7688E+12,1500,5,5_tiza.wav,0,2095.479,2095.479,ok,-40,FALSE,

@@ -252,19 +252,31 @@ const ScoringUI = (() => {
     handleOnsetAction('confirmed');
   }
 
-  // ── Reference Pronunciation (SpeechSynthesis) ──
+  // ── Reference Pronunciation (recorded audio with SpeechSynthesis fallback) ──
+
+  let _refAudio = null;
 
   function playReference() {
     if (!_currentTrial) return;
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(_currentTrial.word);
-    utterance.lang = 'es-ES';
-    utterance.rate = 0.85;
-    // Try to pick a Spanish voice
-    const voices = speechSynthesis.getVoices();
-    const esVoice = voices.find(v => v.lang.startsWith('es'));
-    if (esVoice) utterance.voice = esVoice;
-    speechSynthesis.speak(utterance);
+    // 再生中なら停止してリセット
+    if (_refAudio) {
+      _refAudio.pause();
+      _refAudio.currentTime = 0;
+    }
+    const word = _currentTrial.wordNormalized || _currentTrial.word;
+    _refAudio = new Audio(`data/reference_audio/${word}.mp3`);
+    _refAudio.play().catch(() => {
+      // フォールバック: 音声ファイルがない場合はSpeechSynthesisを使用
+      console.warn('Reference audio not found, falling back to SpeechSynthesis');
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(_currentTrial.word);
+      utterance.lang = 'es-ES';
+      utterance.rate = 0.85;
+      const voices = speechSynthesis.getVoices();
+      const esVoice = voices.find(v => v.lang.startsWith('es'));
+      if (esVoice) utterance.voice = esVoice;
+      speechSynthesis.speak(utterance);
+    });
   }
 
   return {

@@ -257,6 +257,21 @@ function main() {
   }
   console.log(`  Copied ${imageFiles.length} images`);
 
+  // Copy reference pronunciation audio (female speaker)
+  console.log('\nCopying reference pronunciation audio...');
+  const REF_AUDIO_SRC = path.join(PROJ_ROOT, 'Experiment/Audio_LDT/LDT_audio/target/female');
+  const refAudioDest = path.join(DATA_OUT, 'reference_audio');
+  if (fs.existsSync(REF_AUDIO_SRC)) {
+    fs.mkdirSync(refAudioDest, { recursive: true });
+    const refFiles = fs.readdirSync(REF_AUDIO_SRC).filter(f => f.endsWith('.mp3'));
+    for (const f of refFiles) {
+      fs.copyFileSync(path.join(REF_AUDIO_SRC, f), path.join(refAudioDest, f));
+    }
+    console.log(`  Copied ${refFiles.length} reference audio files`);
+  } else {
+    console.warn(`  WARNING: Reference audio directory not found: ${REF_AUDIO_SRC}`);
+  }
+
   // Write participants.json
   const indexPath = path.join(DATA_OUT, 'participants.json');
   fs.mkdirSync(path.dirname(indexPath), { recursive: true });

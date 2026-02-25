@@ -140,6 +140,7 @@
       <div class="accuracy-section">
         <h3>Accuracy Score</h3>
         <div class="score-buttons">
+          <button class="btn btn-score" data-score="NR" title="No Response (key: 9)">NR</button>
           <button class="btn btn-score" data-score="0" title="Score 0 (key: 0)">0</button>
           <button class="btn btn-score" data-score="0.5" title="Score 0.5 (key: 5)">0.5</button>
           <button class="btn btn-score" data-score="1" title="Score 1 (key: 1)">1</button>
@@ -196,9 +197,13 @@
           </tr>
           <tr>
             <td class="score-cell score-0">0</td>
-            <td><strong>0点: その他（無回答含む）</strong><br>
-              2つ以上の音節に誤りがある場合、全く異なる単語を産出した場合、
-              または無回答の場合。</td>
+            <td><strong>0点: 不正確な産出</strong><br>
+              2つ以上の音節に誤りがある場合、または全く異なる単語を産出した場合。</td>
+          </tr>
+          <tr>
+            <td class="score-cell score-nr">NR</td>
+            <td><strong>NR: 無回答 (No Response)</strong><br>
+              録音に発話が含まれていない場合。オンセットは自動的に「No Speech」に設定されます。</td>
           </tr>
         </table>
       </section>
@@ -260,6 +265,7 @@
         <h3>5. キーボードショートカット</h3>
         <table class="shortcuts-table">
           <tr><td>Space</td><td>再生 / 一時停止</td></tr>
+          <tr><td>9</td><td>スコア = NR (No Response)</td></tr>
           <tr><td>0</td><td>スコア = 0</td></tr>
           <tr><td>5</td><td>スコア = 0.5</td></tr>
           <tr><td>1</td><td>スコア = 1</td></tr>
@@ -280,6 +286,7 @@
     <h3>Keyboard Shortcuts</h3>
     <table>
       <tr><td>Space</td><td>Play / Pause</td></tr>
+      <tr><td>9</td><td>Score = NR (No Response)</td></tr>
       <tr><td>0</td><td>Score = 0</td></tr>
       <tr><td>5</td><td>Score = 0.5</td></tr>
       <tr><td>1</td><td>Score = 1</td></tr>

@@ -36,7 +36,8 @@ const ScoringUI = (() => {
   function setupScoreButtons() {
     document.querySelectorAll('.btn-score').forEach(btn => {
       btn.addEventListener('click', () => {
-        const score = parseFloat(btn.dataset.score);
+        const raw = btn.dataset.score;
+        const score = raw === 'NR' ? 'NR' : parseFloat(raw);
         setAccuracyScore(score);
       });
     });
@@ -159,6 +160,9 @@ const ScoringUI = (() => {
 
   function setAccuracyScore(score) {
     highlightScoreButton(score);
+    if (score === 'NR') {
+      handleOnsetAction('no_speech');
+    }
     saveCurrentScore();
     if (_onScoreChanged) _onScoreChanged();
   }
@@ -182,7 +186,9 @@ const ScoringUI = (() => {
 
   function highlightScoreButton(score) {
     document.querySelectorAll('.btn-score').forEach(btn => {
-      btn.classList.toggle('active', parseFloat(btn.dataset.score) === score);
+      const raw = btn.dataset.score;
+      const btnScore = raw === 'NR' ? 'NR' : parseFloat(raw);
+      btn.classList.toggle('active', btnScore === score);
     });
   }
 
@@ -202,7 +208,9 @@ const ScoringUI = (() => {
 
   function getActiveScore() {
     const active = document.querySelector('.btn-score.active');
-    return active ? parseFloat(active.dataset.score) : null;
+    if (!active) return null;
+    const raw = active.dataset.score;
+    return raw === 'NR' ? 'NR' : parseFloat(raw);
   }
 
   function getActiveOnsetStatus() {
@@ -216,7 +224,12 @@ const ScoringUI = (() => {
     const accuracy = getActiveScore();
     const onsetStatus = getActiveOnsetStatus();
     const notes = document.getElementById('trial-notes').value;
-    const onsetMs = WaveformViewer.getCurrentOnsetMs();
+    let onsetMs = WaveformViewer.getCurrentOnsetMs();
+
+    // NRの場合、onsetMsをnullにする（発話がないため）
+    if (accuracy === 'NR') {
+      onsetMs = null;
+    }
 
     if (accuracy == null && onsetStatus == null) return;
 
@@ -229,7 +242,8 @@ const ScoringUI = (() => {
   }
 
   function scoreByKey(key) {
-    if (key === '0') setAccuracyScore(0);
+    if (key === '9') setAccuracyScore('NR');
+    else if (key === '0') setAccuracyScore(0);
     else if (key === '5') setAccuracyScore(0.5);
     else if (key === '1') setAccuracyScore(1);
   }

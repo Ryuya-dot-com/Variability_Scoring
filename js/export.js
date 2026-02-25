@@ -7,18 +7,61 @@ const Export = (() => {
   // Track which participants have already shown the popup
   const _exportedPopups = new Set();
 
+  /** Strip diacritical marks (matches csv-loader.js stripAccents). */
+  function stripAccents(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  /**
+   * For L2-to-L1 trials, compute the corrected playback end time (ms)
+   * using pre-analyzed stimulus content durations.
+   * Falls back to the original playback_end_ms_rel if correction data unavailable.
+   */
+  function getCorrectedPlaybackEnd(trial) {
+    let corrected = trial.playback_end_ms_rel;
+    const stimDurations = App.getStimulusDurations();
+    if (stimDurations && trial.stimulus_duration_ms != null) {
+      const key = trial.voice + '_' + stripAccents(trial.word || '');
+      const contentMs = stimDurations[key];
+      if (contentMs != null) {
+        const playbackStartRel = trial.playback_end_ms_rel - trial.stimulus_duration_ms;
+        corrected = playbackStartRel + contentMs;
+      }
+    }
+    return corrected;
+  }
+
   function generateParticipantRows(participant, dataset, state) {
     return participant.trials.map(trial => {
       const scoreKey = `${participant.id}_${trial.trial}`;
       const score = state.scores[scoreKey] || {};
+      const isNR = score.accuracy === 'NR';
 
-      // Recalculate rater latency
+      // ── Rater latency (corrected) ──
       let latencyRater = null;
-      if (score.onsetMs != null) {
+      if (!isNR && score.onsetMs != null) {
         if (dataset.testType === 'l2_to_l1' && trial.playback_end_ms_rel != null) {
-          latencyRater = score.onsetMs - trial.playback_end_ms_rel;
+          const correctedEnd = getCorrectedPlaybackEnd(trial);
+          latencyRater = score.onsetMs - correctedEnd;
         } else if (dataset.testType === 'picture_naming' && trial.image_onset_ms_rel != null) {
           latencyRater = score.onsetMs - trial.image_onset_ms_rel;
+        }
+      }
+
+      // ── Auto-detected latency (corrected for MP3 padding) ──
+      let latencyAuto = trial.latency_ms;
+      if (dataset.testType === 'l2_to_l1' && latencyAuto != null) {
+        const stimDurations = App.getStimulusDurations();
+        if (stimDurations && trial.stimulus_duration_ms != null) {
+          const key = trial.voice + '_' + stripAccents(trial.word || '');
+          const contentMs = stimDurations[key];
+          if (contentMs != null) {
+            // Original: latency = onset - playback_end_ms_rel
+            // Padding = stimulus_duration_ms - contentMs
+            // Corrected: latency + padding
+            const paddingMs = trial.stimulus_duration_ms - contentMs;
+            latencyAuto = latencyAuto + paddingMs;
+          }
         }
       }
 
@@ -36,9 +79,9 @@ const Export = (() => {
         image_file: trial.imageFile || '',
         accuracy_score: score.accuracy != null ? score.accuracy : '',
         onset_ms_auto: trial.onset_ms_from_recording_start != null ? trial.onset_ms_from_recording_start : '',
-        onset_ms_rater: score.onsetMs != null ? Math.round(score.onsetMs * 1000) / 1000 : '',
+        onset_ms_rater: (!isNR && score.onsetMs != null) ? Math.round(score.onsetMs * 1000) / 1000 : '',
         onset_status: score.onsetStatus || '',
-        latency_ms_auto: trial.latency_ms != null ? trial.latency_ms : '',
+        latency_ms_auto: latencyAuto != null ? Math.round(latencyAuto * 1000) / 1000 : '',
         latency_ms_rater: latencyRater != null ? Math.round(latencyRater * 1000) / 1000 : '',
         latency_status_auto: trial.latency_status || '',
         notes: score.notes || '',
@@ -126,7 +169,7 @@ const Export = (() => {
           '', '', '', '', '', // word fields - not available without loaded CSV
           score.accuracy != null ? score.accuracy : '',
           '', // auto onset
-          score.onsetMs != null ? score.onsetMs.toFixed(3) : '',
+          (score.accuracy !== 'NR' && score.onsetMs != null) ? score.onsetMs.toFixed(3) : '',
           escapeCSV(score.onsetStatus || ''),
           '', '',
           '',

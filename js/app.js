@@ -6,6 +6,7 @@ const App = (() => {
   let _index = null;
   let _loadGeneration = 0;
   let _currentDataset = null;
+  let _stimulusDurations = null;  // corrected content durations from stimulus_durations.json
 
   async function init() {
     try {
@@ -15,6 +16,17 @@ const App = (() => {
         '<h1>Error loading data</h1><p>Make sure participants.json exists in data/ directory.</p>' +
         '<p>Run: <code>node build/prepare-data.js</code></p></div>';
       return;
+    }
+
+    // Load stimulus content durations (for corrected reference marker)
+    try {
+      const durResp = await fetch('data/stimulus_durations.json');
+      if (durResp.ok) {
+        const durData = await durResp.json();
+        _stimulusDurations = durData.durations || null;
+      }
+    } catch (e) {
+      console.warn('stimulus_durations.json not available, using fallback marker position');
     }
 
     renderSetupScreen();
@@ -255,7 +267,19 @@ const App = (() => {
 
       // Reference marker (playback end for L2-to-L1)
       if (dataset.testType === 'l2_to_l1' && trial.playback_end_ms_rel != null) {
-        WaveformViewer.setReferenceMarker(trial.playback_end_ms_rel);
+        let markerMs = trial.playback_end_ms_rel;
+
+        // Correct for MP3 padding using pre-analyzed content durations
+        if (_stimulusDurations && trial.stimulus_duration_ms != null) {
+          const durationKey = `${trial.voice}_${trial.wordNormalized}`;
+          const contentDurationMs = _stimulusDurations[durationKey];
+          if (contentDurationMs != null) {
+            const playbackStartRel = trial.playback_end_ms_rel - trial.stimulus_duration_ms;
+            markerMs = playbackStartRel + contentDurationMs;
+          }
+        }
+
+        WaveformViewer.setReferenceMarker(markerMs);
       }
     } catch (e) {
       if (generation === _loadGeneration) {
@@ -298,6 +322,9 @@ const App = (() => {
           e.preventDefault();
           WaveformViewer.play();
           updatePlayButton();
+          break;
+        case '9':
+          ScoringUI.scoreByKey('9');
           break;
         case '0':
           ScoringUI.scoreByKey('0');
@@ -353,8 +380,10 @@ const App = (() => {
     panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
   }
 
+  function getStimulusDurations() { return _stimulusDurations; }
+
   // ── Init ──
   document.addEventListener('DOMContentLoaded', init);
 
-  return { getIndex };
+  return { getIndex, getStimulusDurations };
 })();
